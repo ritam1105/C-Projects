@@ -13,29 +13,20 @@ int otpGenarator(){
     // printf("Your 6-digit OTP is: %6d\n", otp1);
     return otp1;
 }
-int limitPin(){
-    char input[5];
-    int number;
-    scanf("%4s", input); 
-    input[strcspn(input, "\n")] = '\0';
-    if (strlen(input) > 4) {
-        return -1; 
+int limitPin() {
+    int in;
+    scanf("%d",&in);
+    if(in>=1000 && in<=9999){
+        return in;
+    }else{
+        return -1;
     }
-    for (int i = 0; i < strlen(input); i++) {
-        if (!isdigit(input[i])) {
-            return -1; 
-        }
-    }
-    number = atoi(input);
-    return number;
 }
 
 struct ATM{
     int pin;
     char name[30];
     int balance;
-    int wcash;
-    int dcash;
 }p1,p2;
 int main(){
     p1.pin=1236;
@@ -65,27 +56,29 @@ int main(){
                         printf("\nEnter 4-digit pin: ");
                         pass1=limitPin();
                         if (pass1 != -1) {
-                            printf("Re-enter the pin: ");
-                            scanf("%d", &pass2);
-                            getchar(); 
-                             if (pass1 == pass2) {
-                                p2.pin = pass1; 
-                                printf("\nAccount PIN successfully generated.\n");
+                           
+                            printf("Re-enter the PIN: ");
+                            scanf("%d",&pass2);
+                            if(pass1==pass2){
+                                p2.pin=pass1;
+                                printf("\nAccount Pin succesfully generated.\n");
+                            }else{
+                                printf("\n**Try Again**\n");
                                 break;
-                            } else {
-                                printf("\nPins do not match. Try again.\n");
                             }
-                        } else {
-                            printf("\nInvalid PIN format. Try again.\n");
+                        }else{
+                           printf("**Enter only a 4-digit number.**\n"); 
+                           break;
                         }
                     }else{
-                        printf("\nOTP does not match!!");
+                        printf("\n**OTP does not match!!**\n");
+                        break;
                     }
                     break;
                 case 3:
                     return 0;
                 default:
-                    printf("Invalid details!!\n");
+                    printf("\nInvalid details!!\n");
             }
         }
     }else{
