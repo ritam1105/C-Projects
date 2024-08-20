@@ -14,13 +14,17 @@ int otpGenarator(){
     return otp1;
 }
 int limitPin() {
-    int in;
-    scanf("%d",&in);
-    if(in>=1000 && in<=9999){
-        return in;
-    }else{
+    char pin[6]; 
+    scanf("%5s", pin); 
+    if (strlen(pin) != 4) {
         return -1;
     }
+    for (int i = 0; i < 4; i++) {
+        if (!isdigit(pin[i])) {
+            return -1;
+        }
+    }
+    return atoi(pin);
 }
 
 struct ATM{
