@@ -37,97 +37,105 @@ int main(){
     p1.balance=0;
     strcpy(p1.name, "Ritam Majumdar");
     int log,new,votp,otp,pass1,pass2;
-    printf("*******************************\n");
-    printf("New customer-->1\nOld customer-->Any key\n");
-    printf("*******************************\n>>");
-    scanf("%d",&log);
-    getchar();
-    if(log==1){
-        while(1){
-            printf("*******************************\n");
-            printf("Generate OTP-->1\nEnter OTP-->2\nquit-->3\n");
-            printf("*******************************\n>>");
-            scanf("%d",&new);
-            switch(new){
-                case 1:
-                   otp=otpGenarator();
-                   printf("Your OTP is: %d\n",otp);
-                    break;
-                case 2:
-                    printf("Enter OTP: ");
-                    scanf("%d",&votp);
-                    if(otp==votp){
-                        printf("\nEnter 4-digit pin: ");
-                        pass1=limitPin();
-                        if (pass1 != -1) {
-                           
-                            printf("Re-enter the PIN: ");
-                            scanf("%d",&pass2);
-                            if(pass1==pass2){
-                                p2.pin=pass1;
-                                printf("\nAccount Pin succesfully generated.\n");
+    while(1){
+        printf("*******************************\n");
+        printf("New customer-->1\nOld customer-->2\n");
+        printf("*******************************\n>>");
+        scanf("%d",&log);
+        getchar();
+        if(log==1){
+            while(1){
+                printf("*******************************\n");
+                printf("Generate OTP-->1\nEnter OTP-->2\nMain Menu-->3\n");
+                printf("*******************************\n>>");
+                scanf("%d",&new);
+                switch(new){
+                    case 1:
+                    otp=otpGenarator();
+                    printf("Your OTP is: %d\n",otp);
+                        break;
+                    case 2:
+                        printf("Enter OTP: ");
+                        scanf("%d",&votp);
+                        if(otp==votp){
+                            printf("\nEnter 4-digit pin: ");
+                            pass1=limitPin();
+                            if (pass1 != -1) {
+                            
+                                printf("Re-enter the PIN: ");
+                                scanf("%d",&pass2);
+                                if(pass1==pass2){
+                                    p2.pin=pass1;
+                                    printf("\nAccount Pin succesfully generated.\n");
+                                }else{
+                                    printf("\n**Try Again**\n");
+                                    break;
+                                }
                             }else{
-                                printf("\n**Try Again**\n");
-                                break;
+                            printf("**Enter only a 4-digit number.**\n"); 
+                            break;
                             }
                         }else{
-                           printf("**Enter only a 4-digit number.**\n"); 
-                           break;
-                        }
-                    }else{
-                        printf("\n**OTP does not match!!**\n");
-                        break;
-                    }
-                    break;
-                case 3:
-                    return 0;
-                default:
-                    printf("\nInvalid details!!\n");
-            }
-        }
-    }else{
-        int pin1,amount,dep;
-        printf("Enter your 4-digit Pin: ");
-        scanf("%d",&pin1);
-        if(p1.pin==pin1){
-            while(1){
-                int choice;
-                printf("*******************************\n");
-                printf("Name:%s",p1.name);
-                printf("\nBalance->1\nwithdrawal->2\nDeposite->3\nquit->4\n");
-                printf("*******************************\n>>");
-                scanf("%d",&choice);
-                switch(choice){
-                    case 1:
-                        printf("Your balance: %d\n",p1.balance);
-                        break;
-                    case 2://withdrawal
-                        printf("\nEnter amount for withdrawal: ");
-                        scanf("%d",&amount);
-                        if(p1.balance>=amount ){
-                            printf("\nPlease wait transaction is on process\n");
-                            p1.balance=p1.balance-amount;
-                        }else{
-                            printf("\nInvalid amount\n");
+                            printf("\n**OTP does not match!!**\n");
+                            break;
                         }
                         break;
-                    case 3://deposite
-                        printf("\nEnter Amount for deposite: ");
-                        scanf("%d",&dep);
-                        p1.balance=p1.balance+dep;
+                    case 3:
                         break;
-                    case 4:
-                        return 0;
                     default:
-                        printf("\nInvalid details!");
-                        break;       
+                        printf("\nInvalid details!!\n");
+                }
+                if(new==3){
+                    break;
+                }
             }
+        }else{
+            int pin1,amount,dep;
+            printf("Enter your 4-digit Pin: ");
+            scanf("%d",&pin1);
+            if(p1.pin==pin1){
+                while(1){
+                    int choice;
+                    printf("*******************************\n");
+                    printf("Name:%s",p1.name);
+                    printf("\nBalance->1\nwithdrawal->2\nDeposite->3\nMain menu->4\n");
+                    printf("*******************************\n>>");
+                    scanf("%d",&choice);
+                    switch(choice){
+                        case 1:
+                            printf("Your balance: %d\n",p1.balance);
+                            break;
+                        case 2://withdrawal
+                            printf("\nEnter amount for withdrawal: ");
+                            scanf("%d",&amount);
+                            if(p1.balance>=amount ){
+                                printf("\nPlease wait transaction is on process\n");
+                                p1.balance=p1.balance-amount;
+                            }else{
+                                printf("\nInvalid amount\n");
+                            }
+                            break;
+                        case 3://deposite
+                            printf("\nEnter Amount for deposite: ");
+                            scanf("%d",&dep);
+                            p1.balance=p1.balance+dep;
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            printf("\nInvalid details!");
+                            break;       
+                }
+                if(choice==4){
+                    break;
+                }
+                }
             }
+            else{
+                printf("\nInvalid pin\n");
+            }
+            printf("\nThank You\n");
         }
-        else{
-            printf("\nInvalid pin\n");
-        }
-        printf("\nThank You\n");
     }
     return 0;  
 }
